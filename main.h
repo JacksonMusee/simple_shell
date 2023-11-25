@@ -8,4 +8,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+void execute(char *ln_buf, char **argv, char **env);
+
 #endif
