@@ -27,6 +27,7 @@ int main(int argc, char **argv, char **env)
 		{
 			if (feof(stdin))
 			{
+				free(ln_buf);
 				exit(EXIT_SUCCESS);
 			}
 			else
