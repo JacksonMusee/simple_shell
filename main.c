@@ -14,18 +14,28 @@ int main(int argc, char **argv, char **env)
 {
 	char *ln_buf = NULL;
 	size_t len = 0;
-
+	int is_terminal;
 	(void)argc;
 
+	is_terminal = isatty(fileno(stdin));
 	while (1)
 	{
-		printf("($) ");
+		if (is_terminal)
+			printf("($) ");
 
 		if (getline(&ln_buf, &len, stdin) == -1)
 		{
-			free(ln_buf);
-			perror("Error: Getline() failed");
-			exit(EXIT_FAILURE);
+			if (feof(stdin))
+			{
+				free(ln_buf);
+				exit(EXIT_SUCCESS);
+			}
+			else
+			{
+				free(ln_buf);
+				perror("Error: Getline() failed");
+				exit(EXIT_FAILURE);
+			}
 		}
 
 		ln_buf[strcspn(ln_buf, "\n")] = '\0';
@@ -34,7 +44,7 @@ int main(int argc, char **argv, char **env)
 		if (strcmp(argv[0], "exit") == 0)
 			_exit(EXIT_SUCCESS);
 
-		execute(ln_buf, argv, env);
+		execute(argv[0], argv, env);
 	}
 
 	free(ln_buf);
@@ -61,6 +71,7 @@ void execute(char *ln_buf, char **argv, char **env)
 
 			if (execve(argv[0], argv, env))
 			{
+				printf("%s\n", ln_buf);
 				free(ln_buf);
 				perror("Error: execve() failed");
 				exit(EXIT_FAILURE);

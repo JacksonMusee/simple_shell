@@ -9,5 +9,6 @@
 #include <sys/wait.h>
 
 void execute(char *ln_buf, char **argv, char **env);
+char *fndcmd(char *ln_buf);
 
 #endif
