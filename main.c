@@ -27,7 +27,6 @@ int main(int argc, char **argv, char **env)
 		{
 			if (feof(stdin))
 			{
-				free(ln_buf);
 				exit(EXIT_SUCCESS);
 			}
 			else
@@ -71,7 +70,6 @@ void execute(char *ln_buf, char **argv, char **env)
 
 			if (execve(argv[0], argv, env))
 			{
-				printf("%s\n", ln_buf);
 				free(ln_buf);
 				perror("Error: execve() failed");
 				exit(EXIT_FAILURE);
