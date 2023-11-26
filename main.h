@@ -8,7 +8,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-void execute(char *ln_buf, char **argv, char **env);
+int execute(char *ln_buf, char **argv, char **env);
 char *fndcmd(char *ln_buf);
+char **tokenize(char *str);
 
 #endif

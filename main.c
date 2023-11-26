@@ -12,6 +12,8 @@
 
 int main(int argc, char **argv, char **env)
 {
+	char **cmd;
+	int i = 0;
 	char *ln_buf = NULL;
 	size_t len = 0;
 	int is_terminal;
@@ -39,15 +41,21 @@ int main(int argc, char **argv, char **env)
 		}
 
 		ln_buf[strcspn(ln_buf, "\n")] = '\0';
-		argv[0] = strtok(ln_buf, " ");
+		argv[0] = ln_buf;
 
 		if (strcmp(argv[0], "exit") == 0)
 			_exit(EXIT_SUCCESS);
 
-		while (argv[0] != NULL)
+		if (execute(argv[0], argv, env) == -1)
 		{
-			execute(argv[0], argv, env);
-			argv[0] = strtok(NULL, " ");
+			cmd = tokenize(argv[0]);
+
+			while(cmd[i])
+			{
+				argv[0] = cmd[i];
+				execute(argv[0], argv, env);
+				i++;
+			}
 		}
 	}
 
@@ -64,7 +72,7 @@ int main(int argc, char **argv, char **env)
  *@env: Array of environment variables
  *
  */
-void execute(char *ln_buf, char **argv, char **env)
+int execute(char *ln_buf, char **argv, char **env)
 {
 		pid_t child_pid = fork();
 
@@ -73,15 +81,16 @@ void execute(char *ln_buf, char **argv, char **env)
 			if (strlen(ln_buf) == 0)
 				exit(EXIT_SUCCESS);
 
-			if (execve(argv[0], argv, env))
+			if (execve(argv[0], argv, env) == -1)
 			{
-				free(ln_buf);
-				perror("Error: execve() failed");
-				exit(EXIT_FAILURE);
+				return (-1);
+
 			}
 		}
 		else
 		{
 			wait(NULL);
 		}
+
+	return (0);
 }
