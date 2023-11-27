@@ -41,8 +41,13 @@ int main(int argc, char **argv, char **env)
 		}
 
 		if (is_terminal)
+		{
 			ln_buf[strcspn(ln_buf, "\n")] = '\0';
-
+		}
+		else
+		{
+			ln_buf[strlen(ln_buf) - 1] = '\0';
+		}
 		argv[0] = ln_buf;
 
 		if (strcmp(argv[0], "exit") == 0)
@@ -50,6 +55,7 @@ int main(int argc, char **argv, char **env)
 
 		if (execute(argv[0], argv, env) == -1)
 		{
+
 			cmd = tokenize(argv[0]);
 
 			while(cmd[i])
