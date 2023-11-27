@@ -53,17 +53,14 @@ int main(int argc, char **argv, char **env)
 		if (strcmp(argv[0], "exit") == 0)
 			_exit(EXIT_SUCCESS);
 
-		if (execute(argv[0], argv, env) == -1)
+
+		cmd = tokenize(argv[0]);
+
+		while(cmd[i])
 		{
-
-			cmd = tokenize(argv[0]);
-
-			while(cmd[i])
-			{
-				argv[0] = cmd[i];
-				execute(argv[0], argv, env);
-				i++;
-			}
+			argv[0] = cmd[i];
+			execute(argv[0], argv, env);
+			i++;
 		}
 	}
 
