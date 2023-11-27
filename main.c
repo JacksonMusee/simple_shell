@@ -40,7 +40,9 @@ int main(int argc, char **argv, char **env)
 			}
 		}
 
-		ln_buf[strcspn(ln_buf, "\n")] = '\0';
+		if (is_terminal)
+			ln_buf[strcspn(ln_buf, "\n")] = '\0';
+
 		argv[0] = ln_buf;
 
 		if (strcmp(argv[0], "exit") == 0)
