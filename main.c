@@ -17,6 +17,7 @@ int main(int argc, char **argv, char **env)
 	char *ln_buf = NULL;
 	size_t len = 0;
 	int is_terminal;
+	int j = 0;
 	(void)argc;
 
 	is_terminal = isatty(fileno(stdin));
@@ -46,8 +47,17 @@ int main(int argc, char **argv, char **env)
 		}
 		else
 		{
-			ln_buf[strlen(ln_buf) - 1] = '\0';
+			ln_buf[len - 1] = '\0';
 		}
+
+		while (ln_buf[j] != '\0')
+		{
+			if (ln_buf[j] == '\n')
+				ln_buf[j] = ' ';
+
+			j++;
+		}
+
 		argv[0] = ln_buf;
 
 		if (strcmp(argv[0], "exit") == 0)
@@ -59,6 +69,7 @@ int main(int argc, char **argv, char **env)
 		while(cmd[i])
 		{
 			argv[0] = cmd[i];
+			printf("%s\n", argv[0]);
 			execute(argv[0], argv, env);
 			i++;
 		}

@@ -37,7 +37,7 @@ char **tokenize(char *str)
         int tkn_count;
         char **tkn_arr;
         int i;
-	char *delims = " \t\n";
+	char *delims = " ";
 
         token = strtok(str_cpy, delims);
         if (token == NULL)
