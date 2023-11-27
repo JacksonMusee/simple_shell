@@ -37,8 +37,9 @@ char **tokenize(char *str)
         int tkn_count;
         char **tkn_arr;
         int i;
+	char *delims = " \t\n";
 
-        token = strtok(str_cpy, " ");
+        token = strtok(str_cpy, delims);
         if (token == NULL)
                 exit(EXIT_FAILURE);
 
@@ -46,7 +47,7 @@ char **tokenize(char *str)
         while (token != NULL)
         {
                 tkn_count++;
-                token = strtok(NULL, " ");
+                token = strtok(NULL, delims);
         }
         str_cpy = strdup(str);
 
@@ -55,12 +56,12 @@ char **tokenize(char *str)
                 exit (EXIT_FAILURE);
 
         i = 0;
-        token = strtok(str_cpy, " ");
+        token = strtok(str_cpy, delims);
         while (token != NULL)
         {
                 tkn_arr[i] = token;
                 i++;
-                token = strtok(NULL, " ");
+                token = strtok(NULL, delims);
         }
         tkn_arr[i] = NULL;
 
