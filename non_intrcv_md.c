@@ -49,7 +49,4 @@ void non_intrcv(char **argv, char **env)
 		execute(argv[0], argv, env);
 		argv[0] = strtok(NULL, " ");
 	}
-
-	free(cl_ln_buf);
-	free(ln_buf);
 }

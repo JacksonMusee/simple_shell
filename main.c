@@ -45,6 +45,7 @@ int execute(char *ln_buf, char **argv, char **env)
 		{
 			if (strlen(ln_buf) == 0)
 			{
+				free(ln_buf);
 				exit(EXIT_SUCCESS);
 			}
 
