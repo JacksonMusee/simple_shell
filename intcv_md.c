@@ -19,16 +19,18 @@ void intrcv_main(char **argv, char **env)
 		ln_buf = read_line();
 		ln_buf[strcspn(ln_buf, "\n")] = '\0';
 
-		argv[0] = strdup(ln_buf);
+		argv[0] = strtok(ln_buf, " ");
 
 		if (strcmp(argv[0], "exit") == 0)
 		{
-			free(ln_buf);
-			free(argv[0]);
                         _exit(EXIT_SUCCESS);
 		}
 
-		execute(argv[0], argv, env);
+		while (argv[0])
+		{
+			execute(argv[0], argv, env);
+			argv[0] = strtok(NULL, " ");
+		}
 
 		free(ln_buf);
 		free(argv[0]);

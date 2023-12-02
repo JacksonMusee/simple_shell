@@ -18,7 +18,13 @@ int main(int argc, char **argv, char **env)
 	is_terminal = isatty(fileno(stdin));
 
 	if (is_terminal == 1)
+	{
 		intrcv_main(argv, env);
+	}
+	else
+	{
+		non_intrcv(argv, env);
+	}
 
 	return (0);
 }
@@ -39,8 +45,6 @@ int execute(char *ln_buf, char **argv, char **env)
 		{
 			if (strlen(ln_buf) == 0)
 			{
-				free(argv[0]);
-				free(ln_buf);
 				exit(EXIT_SUCCESS);
 			}
 
