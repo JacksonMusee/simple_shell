@@ -13,7 +13,12 @@
 int main(int argc, char **argv, char **env)
 {
 	int is_terminal;
-	(void)argc;
+
+	if (argc > 1)
+	{
+		exec_cmd_args(argc, argv, env);
+		exit(EXIT_SUCCESS);
+	}
 
 	is_terminal = isatty(fileno(stdin));
 

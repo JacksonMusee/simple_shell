@@ -13,6 +13,7 @@ char *fndcmd(char *ln_buf);
 char **tokenize(char *str);
 void intrcv_main(char **argv, char **env);
 void non_intrcv(char **argv, char **env);
+void exec_cmd_args(int argc, char **argv, char **env);
 char *read_line();
 
 #endif

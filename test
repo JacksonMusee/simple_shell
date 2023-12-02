@@ -1,3 +1,2 @@
 #!/bin/bash
-echo "/bin/ls /bin/ls 
-/bin/ls" | ./shell
+echo "/bin/ls" | ./shell

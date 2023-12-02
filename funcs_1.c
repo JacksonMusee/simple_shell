@@ -98,3 +98,41 @@ char *read_line()
 
 	return (ln_buf);
 }
+
+
+/**
+ *
+ *
+ *
+ *
+ *
+ */
+
+void exec_cmd_args(int argc, char **argv, char **env)
+{
+	int i = 2;
+	char *command = NULL;
+	char *nw_argv[] = {NULL, NULL};
+
+	command = strdup(argv[1]);
+
+	if (argc > 2)
+	{
+		while (argv[i] != NULL)
+		{
+			strcat(command, " ");
+			strcat(command, argv[i]);
+			i++;
+		}
+	}
+
+	nw_argv[0] = command;
+
+	if (execute(command, nw_argv, env) == -1)
+	{
+		perror("Executng cmd args failed");
+		_exit(EXIT_FAILURE);
+	}
+
+	free(command);
+}

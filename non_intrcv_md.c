@@ -11,19 +11,27 @@ void non_intrcv(char **argv, char **env)
 {
 	char *ln_buf = NULL;
 	size_t len = 0;
+	char *token = NULL;
 
 	while (getline(&ln_buf, &len, stdin) != -1)
 	{
 		ln_buf[strcspn(ln_buf, "\n")] = '\0';
 
-		argv[0] = strtok(ln_buf, " \t");
+		token = strtok(ln_buf, " \t");
+		argv[0] = token;
 
-		while (argv[0])
+		while (token)
 		{
-			execute(argv[0], argv, env);
-			argv[0] = strtok(NULL, " \t");
+			execute(token, argv, env);
+			token = strtok(NULL, " \t");
 		}
 
 		free(ln_buf);
 	}
+	if (feof(stdin))
+	{
+		exit(EXIT_SUCCESS);
+	}
+
+	return;
 }

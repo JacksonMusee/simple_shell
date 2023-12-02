@@ -20,6 +20,8 @@ void intrcv_main(char **argv, char **env)
 
 		ln_buf[strcspn(ln_buf, "\n")] = '\0';
 
+		printf("%s\n", ln_buf);
+
 		if (strlen(ln_buf) == 0)
 		{
 			free(ln_buf);
