@@ -67,3 +67,35 @@ char **tokenize(char *str)
 
         return (tkn_arr);
 }
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+char *read_line()
+{
+	char *ln_buf = NULL;
+	size_t len = 0;
+	
+	if (getline(&ln_buf, &len, stdin) == -1)
+	{
+		if (feof(stdin))
+		{
+			free(ln_buf);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			free(ln_buf);
+			perror("Error: Getline() failed");
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	return (ln_buf);
+}
