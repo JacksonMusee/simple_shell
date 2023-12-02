@@ -20,10 +20,13 @@ void intrcv_main(char **argv, char **env)
 
 		ln_buf[strcspn(ln_buf, "\n")] = '\0';
 
-		argv[0] = strtok(ln_buf, " ");
-
-		if (argv[0] == NULL)
+		if (strlen(ln_buf) == 0)
+		{
+			free(ln_buf);
 			continue;
+		}
+
+		argv[0] = strtok(ln_buf, " ");
 
 		if (strcmp(argv[0], "exit") == 0)
 		{
@@ -37,7 +40,6 @@ void intrcv_main(char **argv, char **env)
 			argv[0] = strtok(NULL, " ");
 		}
 
-		free(argv[0]);
 		free(ln_buf);
 	}
 

@@ -91,7 +91,6 @@ char *read_line()
 		}
 		else
 		{
-			free(ln_buf);
 			perror("Error: Getline() failed");
 			exit(EXIT_FAILURE);
 		}
